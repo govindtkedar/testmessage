@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "6061a4ca7a6eec4dac6f898d"
+  },
+  "recipient": "A",
+  "priority": 30,
+  "totalMessageReceived": 8
+},{
+  "_id": {
+    "$oid": "6061a4ca7a6eec4dac6f898e"
+  },
+  "recipient": "B",
+  "priority": 15,
+  "totalMessageReceived": 4
+},{
+  "_id": {
+    "$oid": "6061a4ca7a6eec4dac6f898f"
+  },
+  "recipient": "C",
+  "priority": 5,
+  "totalMessageReceived": 1
+},{
+  "_id": {
+    "$oid": "6061a4ca7a6eec4dac6f8990"
+  },
+  "recipient": "D",
+  "priority": 40,
+  "totalMessageReceived": 11
+},{
+  "_id": {
+    "$oid": "6061a4ca7a6eec4dac6f8991"
+  },
+  "recipient": "E",
+  "priority": 10,
+  "totalMessageReceived": 2
+}]
