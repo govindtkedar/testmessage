@@ -10,7 +10,16 @@ module.exports = (req, res, next) => {
         .then(([messageDetails, rList]) => {
 
             let msgqueued = msg.length;
-            let totalmsg = (messageDetails.length == 0) ? msg.length : messageDetails.length;
+            let totalmsg = (messageDetails.length == 0) ? msg.length : messageDetails.length + msg.length;
+
+            // add current priority
+            rList = rList.map(({ recipient, priority, totalMessageReceived }) => (
+
+                { recipient, priority, totalMessageReceived, cPriority: ((totalMessageReceived / totalmsg) * 100) }
+
+            ));
+                // sort array by priority if priority same check with current prioirty low one first
+            rList.sort((a, b) => (b.priority > a.priority) ? 1 : (b.priority === a.priority) ? ((a.cPriority > b.cPriority) ? 1 : -1) : -1)
 
             for (i = 0; i <= rList.length; i++) {
 
@@ -19,7 +28,8 @@ module.exports = (req, res, next) => {
                 if (rTP <= rPriority) {
 
                     let total = rList[i].totalMessageReceived += msgqueued;
-
+                    rList[i].cPriority = (rList[i].totalMessageReceived / totalmsg) * 100;
+                    
                     recipient.findOneAndUpdate({ recipient: rList[i].recipient },
                         { $set: { totalMessageReceived: total } }, { new: true }
                     ).then(res => {
@@ -52,6 +62,7 @@ module.exports = (req, res, next) => {
 
 
 
+            // let crmessage
             let crmessage = message.create(msg);
 
             return Promise.all([crmessage, rList]);
